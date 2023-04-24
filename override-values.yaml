@@ -1,0 +1,56 @@
+client:
+  grpc: true
+connectInject:
+  consulNamespaces:
+    mirroringK8S: true
+  enabled: true
+controller:
+  enabled: true
+global:
+  acls:
+    manageSystemACLs: true
+  enableConsulNamespaces: true
+  enterpriseLicense:
+    secretKey: key
+    secretName: license
+  gossipEncryption:
+    autoGenerate: true
+  image: hashicorp/consul-enterprise:1.13.7-ent
+  imageEnvoy: envoyproxy/envoy:v1.22.5
+  imageK8S: hashicorp/consul-k8s-control-plane:0.49.5
+  metrics:
+    enabled: false
+  tls:
+    enableAutoEncrypt: true
+    enabled: true
+    httpsOnly: false
+    verify: false
+ingressGateways:
+  defaults:
+    replicas: 1
+    service:
+      type: LoadBalancer
+  enabled: true
+  gateways:
+  - name: ingress-gateway
+meshGateway:
+  enabled: false
+  replicas: 1
+  service:
+    enabled: true
+    nodePort: 32000
+    type: NodePort
+server:
+  replicas: 3
+terminatingGateways:
+  defaults:
+    replicas: 1
+  enabled: false
+ui:
+  enabled: true
+  service:
+    port:
+      http: 80
+      https: 443
+    type: LoadBalancer
+
