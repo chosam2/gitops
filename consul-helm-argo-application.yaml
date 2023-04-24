@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: consul-helm
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: consul
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/chosam2/gitops.git
+    path: argocd
+    targetRevision: main
+    helm:
+      valueFiles:
+      - override-values.yaml
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
